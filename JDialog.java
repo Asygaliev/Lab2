@@ -15,20 +15,21 @@ public class JDialog extends javax.swing.JDialog {
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String inputText = formattedTextField1.getText();
-                int midIndex = inputText.length() / 2;
-                String rightText = inputText.substring(midIndex);
                 String outputText = "";
-                for (int i = 0; i < rightText.length(); i += 3) {
-                    if (i + 2 < rightText.length()) {
-                        outputText += rightText.substring(i, i+2);
-                    } else {
-                        outputText += rightText.substring(i);
+                if (inputText.length() % 2 == 0) {
+                    String rightText = inputText.substring(inputText.length() / 2 - 1);
+                    for (int i = 0; i < rightText.length(); i += 3) {
+                        outputText += rightText.substring(i, Math.min(i + 2, rightText.length()));
+                    }
+                } else {
+                    String rightText = inputText.substring(inputText.length() / 2);
+                    for (int i = 0; i < rightText.length(); i += 3) {
+                        outputText += rightText.substring(i, Math.min(i + 2, rightText.length()));
                     }
                 }
                 formattedTextField2.setText(outputText);
             }
         });
-
     }
 
     public static void main(String[] args) {
